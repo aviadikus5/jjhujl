@@ -1,66 +1,44 @@
-from datetime import datetime
+import tkinter as tk
 
-count = 0
+# Есептеу функциясы
+def esepteu():
+    try:
+        san = float(entry.get())
 
-while True:
-    print("\n===== Конвертер =====")
-    print("1. Км -> М")
-    print("2. М -> Км")
-    print("3. Кг -> Г")
-    print("4. Г -> Кг")
-    print("5. C -> F")
-    print("6. F -> C")
-    print("0. Шығу")
+        kvadrat = san ** 2
+        kub = san ** 3
 
-    choice = input("\nТаңдау: ")
+        result_label.config(
+            text=f"Квадраты: {kvadrat}\nКубы: {kub}",
+            fg="green"
+        )
 
-    if choice == "0":
-        print("\nБағдарлама аяқталды.")
-        print(f"Жалпы орындалған конвертация саны: {count}")
-        break
+    except ValueError:
+        result_label.config(
+            text="Қате: Сан енгізіңіз!",
+            fg="red"
+        )
 
-    elif choice == "1":
-        km = float(input("Км енгізіңіз: "))
-        result = km * 1000
-        print(f"{km} км = {result} м")
-        count += 1
+# Терезе құру
+window = tk.Tk()
+window.title("Санның квадраты және кубы")
+window.geometry("300x200")
 
-    elif choice == "2":
-        m = float(input("М енгізіңіз: "))
-        result = m / 1000
-        print(f"{m} м = {result} км")
-        count += 1
+# Жазу
+label = tk.Label(window, text="Санды енгізіңіз:")
+label.pack(pady=5)
 
-    elif choice == "3":
-        kg = float(input("Кг енгізіңіз: "))
-        result = kg * 1000
-        print(f"{kg} кг = {result} г")
-        count += 1
+# Енгізу өрісі
+entry = tk.Entry(window)
+entry.pack(pady=5)
 
-    elif choice == "4":
-        g = float(input("Г енгізіңіз: "))
-        result = g / 1000
-        print(f"{g} г = {result} кг")
-        count += 1
+# Батырма
+button = tk.Button(window, text="Есептеу", command=esepteu)
+button.pack(pady=10)
 
-    elif choice == "5":
-        c = float(input("°C енгізіңіз: "))
-        result = (c * 9 / 5) + 32
-        print(f"{c}°C = {result}°F")
-        count += 1
+# Нәтиже өрісі
+result_label = tk.Label(window, text="Нәтиже:")
+result_label.pack(pady=10)
 
-    elif choice == "6":
-        f = float(input("°F енгізіңіз: "))
-        result = (f - 32) * 5 / 9
-        print(f"{f}°F = {result:.2f}°C")
-        count += 1
-
-    else:
-        print("Қате таңдау!")
-        continue
-
-    print("\nКонвертация сәтті аяқталды")
-    print("Уақыты:")
-    print(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-
-    print(f"\nЖалпы орындалған конвертация саны: {count}")
+# Бағдарламаны іске қосу
+window.mainloop()
